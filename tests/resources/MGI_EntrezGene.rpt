@@ -1,0 +1,43 @@
+MGI:87853	a	O	nonagouti	76.83	2	Gene		50518	agouti|As|agouti signal protein|ASP	protein coding gene	154791402	155051012	+	protein_coding|KNOWN_protein_coding|protein-coding
+MGI:87853	A<y>	W	withdrawn, allele of a	-999.0	2	Gene
+MGI:87853	As	W	withdrawn, allele of a	-999.0	2	Gene
+MGI:87854	Pzp	O	PZP, alpha-2-macroglobulin like	63.02	6	Gene	MGI:2141514	11287		protein coding gene	128483567	128526720	-	protein_coding|KNOWN_protein_coding|protein-coding
+MGI:87854	AI893533	W	withdrawn, = A2m	-999.0	6	Gene
+MGI:87855	Aal	O	active avoidance learning	-1.0	1	Gene		104236		heritable phenotypic marker
+MGI:87856	Aap	O	active avoidance performance	-999.0	UN	Gene		107417		heritable phenotypic marker
+MGI:87859	Abl1	O	c-abl oncogene 1, non-receptor tyrosine kinase	21.86	2	Gene	MGI:2138905|MGI:2443781	11350	c-Abl|E430008G22Rik	protein coding gene	31688376	31804227	+	protein_coding|KNOWN_protein_coding|protein-coding
+MGI:87859	AI325092	W	withdrawn, = Abl1	-999.0	2	Gene
+MGI:87859	E430008G22Rik	W	withdrawn, = Abl1	-999.0	2	Gene
+MGI:87860	Abl2	O	v-abl Abelson murine leukemia viral oncogene 2 (arg, Abelson-related gene)	67.71	1	Gene	MGI:2138109	11352	Arg|Abll	protein coding gene	156558786	156649568	+	protein_coding|protein-coding|KNOWN_protein_coding
+MGI:87860	Abll	W	withdrawn, = Abl2	-999.0	1	Gene
+MGI:87860	Arg	W	withdrawn, = Abll	-999.0	1	Gene
+MGI:87860	AA536808	W	withdrawn, = Abl2	-999.0	1	Gene
+MGI:87861	abn	O	abnormal	-999.0	UN	Gene				heritable phenotypic marker
+MGI:87862	Scgb1b27	O	secretoglobin, family 1B, member 27	19.38	7	Gene		11354	Sal-1|Abp|Tcp|Abpa|Abpa27	protein coding gene	34021483	34022881	+	protein-coding|KNOWN_protein_coding|protein_coding
+MGI:87862	Abpa	W	withdrawn, = Scgb1b27	-999.0	7	Gene
+MGI:87862	Abp	W	withdrawn, = Abpa	-999.0	7	Gene
+MGI:87862	Sal-1	W	withdrawn, = Abpa	-999.0	7	Gene
+MGI:87862	Tcp	W	withdrawn, = Abpa	-999.0	7	Gene
+MGI:87863	Scgb2b27	O	secretoglobin, family 2B, member 27	19.38	7	Gene	MGI:2655426	233099	C2a|Abpb|Scgb2b5|Abpbg5|Abpbg27	protein coding gene	34011921	34013942	-	protein-coding|KNOWN_protein_coding|protein_coding
+MGI:87863	C2a	W	withdrawn, = Abpb	-999.0	7	Gene
+MGI:87863	Scgb2b5	W	withdrawn, = Abpb	-999.0	7	Gene
+MGI:87863	Abpb	W	withdrawn, = Scgb2b27	-999.0	7	Gene
+MGI:87863	Abpb	W	withdrawn, = Scgb2b5	-999.0	7	Gene
+MGI:87863	EG545947	W	withdrawn, = Gm5894	-999.0	7	Gene
+MGI:87864	Scgb2b26	O	secretoglobin, family 2B, member 26	19.38	7	Gene	MGI:2655745	110187	C2d|Scgb2b4|Abpg|Abpbg4|Abpbg26	protein coding gene	33943002	33945040	-	protein_coding|protein-coding|KNOWN_protein_coding
+MGI:87864	Scgb2b4	W	withdrawn, = Abpg	-999.0	7	Gene
+MGI:87864	C2d	W	withdrawn, = Scgb2b4	-999.0	7	Gene
+MGI:87864	Abpg	W	withdrawn, = Scgb2b26	-999.0	7	Gene
+MGI:87865	ac	O	absent corpus callosum	-999.0	UN	Gene		11358		heritable phenotypic marker
+MGI:87866	Acadl	O	acyl-Coenzyme A dehydrogenase, long-chain	33.64	1	Gene	MGI:2138138|MGI:2138418|MGI:2138684	11363	LCAD|C79855	protein coding gene	66830839	66863277	-	protein_coding|KNOWN_protein_coding|protein-coding
+MGI:87866	AA960361	W	withdrawn, = Acadl	-999.0	1	Gene
+MGI:87866	AU018452	W	withdrawn, = Acadl	-999.0	1	Gene
+MGI:87866	C79855	W	withdrawn, = Acadl	-999.0	1	Gene
+MGI:87867	Acadm	O	acyl-Coenzyme A dehydrogenase, medium chain	78.77	3	Gene	MGI:2139874	11364	MCAD	protein coding gene	153922357	153944632	-	protein-coding|KNOWN_protein_coding|protein_coding
+MGI:87867	AU018656	W	withdrawn, = Acadm	-999.0	3	Gene
+MGI:87868	Acads	O	acyl-Coenzyme A dehydrogenase, short chain	55.99	5	Gene	MGI:2140816|MGI:2448341	11409	SCAD|Bcd-1|Bcd1|Hdlq8	protein coding gene	115110299	115119346	-	protein_coding|protein-coding|KNOWN_protein_coding
+MGI:87868	Bcd-1	W	withdrawn, = Bcd1	-999.0	5	Gene
+MGI:87868	Hdlq8	W	withdrawn, = Acads	-999.0	5	QTL
+MGI:87868	Bcd1	W	withdrawn, = Acads	-999.0	5	Gene
+MGI:87868	AI196007	W	withdrawn, = Acads	-999.0	5	Gene
+MGI:87870	Acat1	O	acetyl-Coenzyme A acetyltransferase 1	29.12	9	Gene	MGI:2443107	110446	Acat|6330585C21Rik	protein coding gene	53580522	53610382	-	protein_coding|KNOWN_protein_coding|protein-coding
