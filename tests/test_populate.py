@@ -10,4 +10,4 @@ class TestPopulate(TemporaryCacheClassMixin):
     manager: Manager
 
     def test_count(self):
-        self.assertEqual(10, self.manager.count_mouse_genes())
+        self.assertEqual(9, self.manager.count_mouse_genes())
