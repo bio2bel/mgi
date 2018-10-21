@@ -10,7 +10,7 @@ from .constants import MODULE_NAME
 
 Base = declarative_base()
 
-GENE_TABLE_NAME = f'{MODULE_NAME}_gene'
+MOUSE_GENE_TABLE_NAME = f'{MODULE_NAME}_mouseGene'
 
 marker_type_to_encoding = {
     'BAC/YAC end': 'G',
@@ -52,10 +52,10 @@ feature_type_to_encoding = {
 }
 
 
-class Gene(Base):  # type: ignore
+class MouseGene(Base):  # type: ignore
     """Gene table."""
 
-    __tablename__ = GENE_TABLE_NAME
+    __tablename__ = MOUSE_GENE_TABLE_NAME
 
     id = Column(Integer, primary_key=True)
 
