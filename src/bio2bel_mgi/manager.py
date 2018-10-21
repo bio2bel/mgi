@@ -21,7 +21,8 @@ class Manager(AbstractManager, BELNamespaceManagerMixin, FlaskMixin):
 
     def _create_namespace_entry_from_model(self, model: Gene, namespace: Namespace) -> NamespaceEntry:
         return NamespaceEntry(
-            name=model.name,
+            encoding=model.bel_encoding,
+            name=model.symbol,
             identifier=model.mgi_id,
             namespace=namespace,
         )
