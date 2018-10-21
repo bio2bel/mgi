@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+from typing import Optional
+
 import pandas as pd
 
 from ..constants import ENTREZ_MAPPING_URL
@@ -27,11 +29,10 @@ column_labels = [
 ]
 
 
-def parse_entrez_mapping(url=None):
-    """Reads the MGI to Entrez mapping file
+def parse_entrez_mapping(url: Optional[str] = None) -> pd.DataFrame:
+    """Read the MGI to Entrez mapping file.
 
-    :param Optional[str] url: The URL of the Entrez mapping file
-    :rtype: pandas.DataFrame
+    :param url: The URL of the Entrez mapping file
     """
     return pd.read_csv(
         url or ENTREZ_MAPPING_URL,

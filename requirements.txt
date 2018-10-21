@@ -1,4 +1,0 @@
-pandas
-sqlalchemy
-click
-bio2bel

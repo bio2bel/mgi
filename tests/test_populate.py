@@ -1,7 +1,13 @@
 # -*- coding: utf-8 -*-
 
-import unittest
+from bio2bel_mgi import Manager
+from tests.cases import TemporaryCacheClassMixin
 
-class TestPopulate(unittest.TestCase):
-    def test_something(self):
-        pass
+
+class TestPopulate(TemporaryCacheClassMixin):
+    """"""
+
+    manager: Manager
+
+    def test_count(self):
+        self.assertEqual(10, self.manager.count_genes())

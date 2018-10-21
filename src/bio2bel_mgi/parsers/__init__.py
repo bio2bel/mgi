@@ -2,9 +2,5 @@
 
 """Various parsers for MGI files"""
 
-from . import entrez_mapping
-from .entrez_mapping import *
-
-__all__ = (
-    entrez_mapping.__all__
-)
+from .entrez_mapping import parse_entrez_mapping
+from .markers import get_marker_df
