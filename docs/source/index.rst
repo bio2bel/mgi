@@ -2,17 +2,8 @@ Bio2BEL MGI
 ===========
 .. automodule:: bio2bel_mgi
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+.. automodule:: bio2bel_mgi.manager
+   :members:
 
-   enrichment
-   manager
-   constants
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+.. automodule:: bio2bel_mgi.models
+   :members:
