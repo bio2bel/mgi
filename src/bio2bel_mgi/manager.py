@@ -1,16 +1,17 @@
 # -*- coding: utf-8 -*-
-
-from typing import Mapping, Optional
+import networkx as nx
+from typing import Mapping, Optional, Iterable, Tuple
 
 from bio2bel.manager import AbstractManager
 from bio2bel.manager.flask_manager import FlaskMixin
 from bio2bel.manager.namespace_manager import BELNamespaceManagerMixin
 from pybel import BELGraph
+from pybel.constants import NAMESPACE, IDENTIFIER, NAME
 from pybel.manager.models import Namespace, NamespaceEntry
 from .constants import MODULE_NAME
 from .models import Base, MouseGene
 from .parsers import get_marker_df
-
+from pybel.dsl import BaseEntity
 
 class Manager(AbstractManager, BELNamespaceManagerMixin, FlaskMixin):
     """Manages the MGI database."""
@@ -69,6 +70,41 @@ class Manager(AbstractManager, BELNamespaceManagerMixin, FlaskMixin):
     def enrich_entrez_equivalences(self, graph: BELGraph):
         """Add equivalent Entrez nodes for MGI nodes."""
         raise NotImplementedError
+
+    def normalize_mouse_genes(self, graph: BELGraph) -> None:
+        mapping = {
+            node: gene_model.as_bel(func=node.function)
+            for node, gene_model in self.iter_mouse_genes(graph)
+        }
+        nx.relabel_nodes(graph, mapping, copy=False)
+
+    def iter_mouse_genes(self, graph: BELGraph) -> Iterable[Tuple[BaseEntity, MouseGene]]:
+        """Iterate over pairs of BEL nodes and Rat genes."""
+        for node in graph:
+            rat_gene = self.get_mouse_gene_from_bel(node)
+            if rat_gene is not None:
+                yield node, rat_gene
+
+    def get_mouse_gene_from_bel(self, node: BaseEntity) -> Optional[MouseGene]:
+        namespace = node.get(NAMESPACE)
+
+        if not namespace or namespace.lower() not in {'mgi', 'mgiid'}:
+            return
+
+        identifier = node.get(IDENTIFIER)
+        name = node.get(NAME)
+
+        if identifier is None and name is None:
+            raise ValueError
+
+        if namespace.lower() == 'mgiid':
+            return self.get_gene_by_mgi_id(name)
+
+        elif namespace.lower() == 'mgi':
+            if identifier is not None:
+                return self.get_gene_by_mgi_id(identifier)
+            else:  # elif name is not None:
+                return self.get_gene_by_mgi_symbol(name)
 
     @staticmethod
     def _get_identifier(mouse_gene: MouseGene):

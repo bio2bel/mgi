@@ -59,7 +59,7 @@ class MouseGene(Base):  # type: ignore
 
     id = Column(Integer, primary_key=True)
 
-    mgi_id = Column(String(255), nullable=False, index=True, doc='KEGG id of the protein')
+    mgi_id = Column(String(255), nullable=False, index=True)
     # chromosome = ...
     # position = ...
     # start
@@ -77,7 +77,6 @@ class MouseGene(Base):  # type: ignore
     def bel_encoding(self):
         if self.marker_type == 'Gene':
             return feature_type_to_encoding[self.feature_type]
-
         return marker_type_to_encoding[self.marker_type]
 
     def __repr__(self):
@@ -88,10 +87,11 @@ class MouseGene(Base):  # type: ignore
         """Return HGNC symbol."""
         return str(self.mgi_id)
 
-    def serialize_to_protein_node(self) -> pybel.dsl.Gene:
-        """Serialize to PyBEL node data dictionary."""
-        return pybel.dsl.Gene(
-            namespace='mgi',
-            name=self.symbol,
-            identifier=str(self.mgi_id)
+    def as_bel(self, func=None) -> pybel.dsl.CentralDogma:
+        """Make a PyBEL DSL object from this gene."""
+        dsl = pybel.dsl.Gene if func is None else pybel.dsl.FUNC_TO_DSL[func]
+        return dsl(
+            namespace=MODULE_NAME,
+            name=str(self.symbol),
+            identifier=str(self.mgi_id),
         )
