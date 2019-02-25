@@ -79,6 +79,15 @@ class MouseGene(Base):  # type: ignore
             return feature_type_to_encoding[self.feature_type]
         return marker_type_to_encoding[self.marker_type]
 
+    def to_json(self):
+        return {
+            'MGI Identifier': self.mgi_id,
+            'MGI Symbol': self.symbol,
+            'Name': self.name,
+            'Marker Type': self.marker_type,
+            'Feature Type': self.feature_type,
+        }
+
     def __repr__(self):
         """Return HGNC symbol."""
         return str(self.mgi_id)
