@@ -110,6 +110,10 @@ class Manager(AbstractManager, BELNamespaceManagerMixin, FlaskMixin):
     def _get_identifier(mouse_gene: MouseGene):
         return mouse_gene.mgi_id
 
+    @staticmethod
+    def _get_name(mouse_gene: MouseGene) -> str:
+        return mouse_gene.symbol
+
     def _create_namespace_entry_from_model(self, mouse_gene: MouseGene, namespace: Namespace) -> NamespaceEntry:
         return NamespaceEntry(
             encoding=mouse_gene.bel_encoding,
