@@ -1,17 +1,20 @@
 # -*- coding: utf-8 -*-
+
+from typing import Iterable, Mapping, Optional, Tuple
+
 import networkx as nx
-from typing import Mapping, Optional, Iterable, Tuple
 
 from bio2bel.manager import AbstractManager
 from bio2bel.manager.flask_manager import FlaskMixin
 from bio2bel.manager.namespace_manager import BELNamespaceManagerMixin
 from pybel import BELGraph
-from pybel.constants import NAMESPACE, IDENTIFIER, NAME
+from pybel.constants import IDENTIFIER, NAME, NAMESPACE
+from pybel.dsl import BaseEntity
 from pybel.manager.models import Namespace, NamespaceEntry
 from .constants import MODULE_NAME
 from .models import Base, MouseGene
 from .parsers import get_marker_df
-from pybel.dsl import BaseEntity
+
 
 class Manager(AbstractManager, BELNamespaceManagerMixin, FlaskMixin):
     """Manages the MGI database."""
@@ -23,7 +26,7 @@ class Manager(AbstractManager, BELNamespaceManagerMixin, FlaskMixin):
 
     namespace_model = MouseGene
     identifiers_recommended = 'Mouse Genome Database'
-    identifiers_pattern = '^MGI:\d+$'
+    identifiers_pattern = r'^MGI:\d+$'
     identifiers_miriam = 'MIR:00000037'
     identifiers_namespace = 'mgi'
     identifiers_url = 'http://identifiers.org/mgi/'
@@ -121,3 +124,7 @@ class Manager(AbstractManager, BELNamespaceManagerMixin, FlaskMixin):
             identifier=mouse_gene.mgi_id,
             namespace=namespace,
         )
+
+    def build_mgi_gene_symbol_to_mgi_id_mapping(self) -> Mapping[str, str]:
+        """Build a mapping from MGI symbols to their MGI identifiers."""
+        return dict(self.session.query(MouseGene.symbol, MouseGene.mgi_id).all())
