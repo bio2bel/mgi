@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
 
-from typing import Iterable, Mapping, Optional, Tuple
+"""Manager for Bio2BEL MGI."""
+
+import logging
+from typing import Iterable, Mapping, Optional, Tuple, List
 
 import networkx as nx
+from tqdm import tqdm
 
 from bio2bel.manager import AbstractManager
 from bio2bel.manager.flask_manager import FlaskMixin
@@ -15,9 +19,15 @@ from .constants import MODULE_NAME
 from .models import Base, MouseGene
 from .parsers import get_marker_df
 
+__all__ = [
+    'Manager',
+]
+
+logger = logging.getLogger(__name__)
+
 
 class Manager(AbstractManager, BELNamespaceManagerMixin, FlaskMixin):
-    """Manages the MGI database."""
+    """Mouse genome nomenclature."""
 
     _base = Base
     module_name = MODULE_NAME
@@ -37,7 +47,7 @@ class Manager(AbstractManager, BELNamespaceManagerMixin, FlaskMixin):
 
     def summarize(self) -> Mapping[str, int]:
         """Summarize the database."""
-        return dict(genes=self.count_mouse_genes())
+        return dict(mouse_genes=self.count_mouse_genes())
 
     def is_populated(self) -> bool:
         """Check if the database is populated."""
@@ -48,6 +58,10 @@ class Manager(AbstractManager, BELNamespaceManagerMixin, FlaskMixin):
         marker_df = get_marker_df(url=marker_url)
         marker_df.to_sql(MouseGene.__tablename__, self.engine, if_exists='append', index=False)
         self.session.commit()
+
+    def get_genes(self) -> List[MouseGene]:
+        """Get all mouse genes."""
+        return self._get_query(MouseGene).all()
 
     def get_gene_by_mgi_id(self, mgi_id: str) -> Optional[MouseGene]:
         """Get a gene by its MGI gene identifier, if it exists.
@@ -74,16 +88,21 @@ class Manager(AbstractManager, BELNamespaceManagerMixin, FlaskMixin):
         """Add equivalent Entrez nodes for MGI nodes."""
         raise NotImplementedError
 
-    def normalize_mouse_genes(self, graph: BELGraph) -> None:
+    def normalize_mouse_genes(self, graph: BELGraph, use_tqdm: bool = False) -> None:
         mapping = {
             node: gene_model.as_bel(func=node.function)
-            for node, gene_model in self.iter_mouse_genes(graph)
+            for node, gene_model in self.iter_mouse_genes(graph, use_tqdm=use_tqdm)
         }
         nx.relabel_nodes(graph, mapping, copy=False)
 
-    def iter_mouse_genes(self, graph: BELGraph) -> Iterable[Tuple[BaseEntity, MouseGene]]:
-        """Iterate over pairs of BEL nodes and Rat genes."""
-        for node in graph:
+    def iter_mouse_genes(self, graph: BELGraph, use_tqdm: bool = False) -> Iterable[Tuple[BaseEntity, MouseGene]]:
+        """Iterate over pairs of BEL nodes and MGI genes."""
+        it = (
+            tqdm(graph, desc='Mouse genes')
+            if use_tqdm else
+            graph
+        )
+        for node in it:
             rat_gene = self.get_mouse_gene_from_bel(node)
             if rat_gene is not None:
                 yield node, rat_gene
@@ -109,8 +128,10 @@ class Manager(AbstractManager, BELNamespaceManagerMixin, FlaskMixin):
             else:  # elif name is not None:
                 return self.get_gene_by_mgi_symbol(name)
 
+        logger.warning('Could not map MGI node: %r', node)
+
     @staticmethod
-    def _get_identifier(mouse_gene: MouseGene):
+    def _get_identifier(mouse_gene: MouseGene) -> str:
         return mouse_gene.mgi_id
 
     @staticmethod

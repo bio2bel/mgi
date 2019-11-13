@@ -89,12 +89,10 @@ class MouseGene(Base):  # type: ignore
         }
 
     def __repr__(self):
-        """Return HGNC symbol."""
-        return str(self.mgi_id)
+        return f'mgi:{self.mgi_id} ! {self.symbol}'
 
     def __str__(self):
-        """Return HGNC symbol."""
-        return str(self.mgi_id)
+        return f'mgi:{self.mgi_id} ! {self.symbol}'
 
     def as_bel(self, func=None) -> pybel.dsl.CentralDogma:
         """Make a PyBEL DSL object from this gene."""
